@@ -99,6 +99,27 @@
     justify-content: center;
   }
 
+  .figure-container {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 20px 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    text-align: center;
+  }
+  .figure-container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+  }
+  .figure-caption {
+    font-size: 0.85em;
+    color: #555;
+    margin-top: 10px;
+    font-style: italic;
+  }
+
   table {
     width: 100%;
     border-collapse: collapse;
@@ -190,6 +211,11 @@ graph LR
 </pre>
 </div>
 
+<div class="figure-container">
+  <img src="fig_attack_surface.png" alt="Firmware Attack Surface of Commercial Aircraft">
+  <p class="figure-caption">Figure 1. Firmware attack surface of a modern commercial aircraft. Each labeled component contains firmware sourced from a different sub-tier supplier, representing a potential entry point for supply chain compromise.</p>
+</div>
+
 <!-- ============ SECTION 2 ============ -->
 <h3>2. Our Solution: The Full Pipeline</h3>
 <p>We insert a <strong>quarantine-and-test stage</strong> between supplier delivery and aircraft integration. Every firmware binary is automatically red-teamed <em>before</em> it ever touches an aircraft — "in vitro" testing.</p>
@@ -256,6 +282,11 @@ sequenceDiagram
   <strong>Example:</strong> IMU returns heading 274° when spec requires 271°±1° under this input condition. A normal fuzzer sees "no crash" and passes it. Our oracle catches the 3° deviation — which could cause a navigational error.
 </div>
 
+<div class="figure-container">
+  <img src="fig_spec_deviation.png" alt="Specification-Conformance Testing Results">
+  <p class="figure-caption">Figure 2. Specification-conformance testing results for an IMU heading sensor. Clean firmware (green) stays within the spec-compliant range. Compromised firmware (red) passes under normal conditions but deviates under GPS inputs matching Paris airspace — a "silent misbehavior" that traditional fuzzers would miss.</p>
+</div>
+
 <!-- ============ SECTION 4 ============ -->
 <h3>4. Innovation #2: Cross-Supplier Fingerprinting</h3>
 <p>Every firmware submission generates a behavioral profile. The pipeline compares profiles across <strong>all suppliers</strong> for the same component class. Statistical outliers are automatically flagged — the population defines "normal," not the vendor.</p>
@@ -307,6 +338,11 @@ graph TD
 
 <div class="key-insight">
   <strong>Why novel:</strong> Eclypsium has "Bill of Behavior" (vendor grades own homework). We let the <em>population</em> define normal — a teacher comparing all students' work to find the outlier.
+</div>
+
+<div class="figure-container">
+  <img src="fig_fingerprint_radar.png" alt="Cross-Supplier Behavioral Fingerprint Comparison">
+  <p class="figure-caption">Figure 3. Cross-supplier behavioral fingerprint comparison. Suppliers A, B, and C show similar behavioral profiles under adversarial testing. Supplier D (red) is a clear statistical outlier — abnormally high response latency and low edge-case handling scores flag it for manual review.</p>
 </div>
 
 <!-- ============ SECTION 5 ============ -->
@@ -685,6 +721,11 @@ graph LR
     style AF3 fill:#2e7d32,color:#fff
     style AF4 fill:#2e7d32,color:#fff
 </pre>
+</div>
+
+<div class="figure-container">
+  <img src="fig_competitive.png" alt="Competitive Positioning: Firmware Security Tools">
+  <p class="figure-caption">Figure 4. Competitive landscape positioning. Existing tools cluster in the general-purpose / signature-based quadrants. AFVP occupies the unclaimed top-right niche: aerospace-specific adversarial behavioral testing with specification-conformance verification.</p>
 </div>
 
 <!-- ============ SECTION 15 ============ -->
